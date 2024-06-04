@@ -1,0 +1,147 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+    <title>SML</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+    <style type="text/css">
+        /* Existing styles */
+        /* New styles for the order section */
+        .order-section {
+            padding: 20px;
+            background: #f7f7f7;
+        }
+        .order-section h3 {
+            color: #333;
+        }
+        .order-section form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        .order-section form input,
+        .order-section form select,
+        .order-section form button {
+            padding: 10px;
+            font-size: 16px;
+        }
+    </style>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:400,500,600,700%7CAllura" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="common.css" rel="stylesheet" />
+</head>
+<body>
+    <!-- Existing content -->
+
+    <!-- Order Section -->
+    <section class="order-section" id="order">
+        <div class="container">
+            <h3>Order Produk</h3>
+            <form id="orderForm">
+                <label for="product">Pilih Produk:</label>
+                <select id="product" name="product" required>
+                    <option value="seblak">Seblak</option>
+                    <!-- Add more product options here -->
+                </select>
+                <label for="quantity">Kuantitas:</label>
+                <input type="number" id="quantity" name="quantity" min="1" required>
+                <label for="name">Nama:</label>
+                <input type="text" id="name" name="name" required>
+                <label for="phone">No. HP:</label>
+                <input type="tel" id="phone" name="phone" required>
+                <button type="submit">Submit Order</button>
+            </form>
+        </div>
+    </section>
+
+    <script>
+        document.getElementById('orderForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const product = document.getElementById('product').value;
+            const quantity = document.getElementById('quantity').value;
+            const name = document.getElementById('name').value;
+            const phone = document.getElementById('phone').value;
+
+            const whatsappURL = `https://api.whatsapp.com/send?phone=+6283194325078&text=Order%20Details:%0A- Product: ${product}%0A- Quantity: ${quantity}%0A- Name: ${name}%0A- Phone: ${phone}`;
+            window.open(whatsappURL, '_blank');
+        });
+    </script>
+
+    <!-- Existing footer and scripts -->
+    <script src="js/main.js"></script>
+    <script src="common-js/jquery-3.2.1.min.js"></script>
+    <script src="common-js/tether.min.js"></script>
+    <script src="common-js/bootstrap.js"></script>
+    <script src="common-js/isotope.pkgd.min.js+jquery.waypoints.min.js+progressbar.min.js+jquery.fluidbox.min.js+scripts.js.pagespeed.jc.9Pm3Vx--mG.js"></script>
+    <script>
+        // Scroll to top button script
+        $(document).ready(function() {
+            $("#keatas").hide();
+            $(function() {
+                $(window).scroll(function() {
+                    if ($(this).scrollTop() > 100) {
+                        $('#keatas').fadeIn();
+                    } else {
+                        $('#keatas').fadeOut();
+                    }
+                });
+                $('#keatas a').click(function() {
+                    $('body,html').animate({ scrollTop: 0 }, 800);
+                    return false;
+                });
+            });
+        });
+    </script>
+    <script>
+        // Typing effect script
+        const typedTextSpan = document.querySelector(".typed-text");
+        const cursorSpan = document.querySelector(".cursor");
+        const textArray = ["Lintang Leona Hermawan"];
+        const typingDelay = 100;
+        const erasingDelay = 100;
+        const newTextDelay = 2500; 
+        let textArrayIndex = 0;
+        let charIndex = 0;
+
+        function type() {
+            if (charIndex < textArray[textArrayIndex].length) {
+                if (!cursorSpan.classList.contains("typing")) cursorSpan.classList.add("typing");
+                typedTextSpan.textContent += textArray[textArrayIndex].charAt(charIndex);
+                charIndex++;
+                setTimeout(type, typingDelay);
+            } else {
+                cursorSpan.classList.remove("typing");
+                setTimeout(erase, newTextDelay);
+            }
+        }
+
+        function erase() {
+            if (charIndex > 0) {
+                if (!cursorSpan.classList.contains("typing")) cursorSpan.classList.add("typing");
+                typedTextSpan.textContent = textArray[textArrayIndex].substring(0, charIndex - 1);
+                charIndex--;
+                setTimeout(erase, erasingDelay);
+            } else {
+                cursorSpan.classList.remove("typing");
+                textArrayIndex++;
+                if (textArrayIndex >= textArray.length) textArrayIndex = 0;
+                setTimeout(type, typingDelay + 1100);
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", function() {
+            if (textArray.length) setTimeout(type, newTextDelay + 250);
+        });
+    </script>
+    <footer>
+        <p class="copyright">
+            Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved
+        </p>
+    </footer>
+</body>
+</html>
